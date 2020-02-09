@@ -1,0 +1,15 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE `action` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `user_id` INTEGER NULL, `op_type` INTEGER NULL, `act_user_id` INTEGER NULL, `act_user_name` TEXT NULL, `repo_id` INTEGER NULL, `repo_user_name` TEXT NULL, `repo_name` TEXT NULL, `ref_name` TEXT NULL, `is_private` INTEGER DEFAULT 0 NOT NULL, `content` TEXT NULL, `created_unix` INTEGER NULL);
+INSERT INTO "action" VALUES(1,1,1,1,'yatesun',1,'yatesun','hexo','',1,'',1573901236);
+INSERT INTO "action" VALUES(2,1,2,1,'yatesun',2,'yatesun','test','',1,'',1573909237);
+INSERT INTO "action" VALUES(3,1,3,1,'yatesun',2,'yatesun','test','master',1,'{"Len":1,"Commits":[{"Sha1":"c64d6eb9b01bf462a4f98a819dc9d796191ffc74","Message":"fixed cms\n","AuthorEmail":"gz@yatesun.com","AuthorName":"root","CommitterEmail":"gz@yatesun.com","CommitterName":"root","Timestamp":"2019-12-18T11:28:02+08:00"}],"CompareURL":"yatesun/test/compare/bab6d61dd18bbc3d4e33e091150c811fcf04f026...c64d6eb9b01bf462a4f98a819dc9d796191ffc74"}',1576639684);
+INSERT INTO "action" VALUES(4,1,3,1,'yatesun',3,'yatesun','hexo','master',1,'{"Len":1,"Commits":[{"Sha1":"78906514caf1aaa741d7140ca516c250b6d83170","Message":"fixed html\n","AuthorEmail":"gz@yatesun.com","AuthorName":"root","CommitterEmail":"gz@yatesun.com","CommitterName":"root","Timestamp":"2020-01-25T21:02:29+08:00"}],"CompareURL":"yatesun/hexo/compare/c1d6ea0c55ed852467919d56f42b0f18afd0a1c0...78906514caf1aaa741d7140ca516c250b6d83170"}',1579957351);
+INSERT INTO "action" VALUES(5,1,3,1,'yatesun',2,'yatesun','test','master',1,'{"Len":1,"Commits":[{"Sha1":"f8aead05c8dc2688b8441f9459273b215bbaefd6","Message":"fixed bug\n","AuthorEmail":"gz@yatesun.com","AuthorName":"root","CommitterEmail":"gz@yatesun.com","CommitterName":"root","Timestamp":"2020-01-27T14:13:36+08:00"}],"CompareURL":"yatesun/test/compare/2c74be0c2282d498b44552e2ec49b44e91d4e6f2...f8aead05c8dc2688b8441f9459273b215bbaefd6"}',1580105618);
+INSERT INTO "action" VALUES(6,1,4,1,'yatesun',4,'yatesun','test','',1,'',1580109618);
+INSERT INTO "action" VALUES(7,1,5,1,'yatesun',5,'yatesun','test','master',1,'{"ForkName":"test_fork"}',1580115618);
+INSERT INTO "action" VALUES(8,1,1,1,'yatesun',1,'yatesun','hexo','',1,'',1580921236);
+INSERT INTO "action" VALUES(9,1,2,1,'yatesun',2,'yatesun','test','',1,'',1580929237);
+INSERT INTO "action" VALUES(10,1,4,1,'yatesun',4,'yatesun','test','',1,'',1581009618);
+CREATE INDEX `IDX_action_repo_id` ON `action` (`repo_id`);
+COMMIT;
