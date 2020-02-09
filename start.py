@@ -12,6 +12,7 @@ sqlpath="action.db"
 def get_action(start_id):
     conn=sqlite3.connect(sqlpath)
     c = conn.cursor()
+    # 每页4条
     sql = "SELECT * FROM action where id < ? order by id desc limit 4"
     cursor = c.execute(sql, (start_id,) )
     data = ''
@@ -20,25 +21,31 @@ def get_action(start_id):
         row_id, user_id, op_type, act_user_id, act_user_name, repo_id, repo_user_name, repo_name, ref_name, is_private, content, created_unix = row
         min_id = min(start_id, row_id)
         date = datetime.datetime.fromtimestamp(created_unix)
+        # star
         if op_type == 4:
             data += render_template("star.tpl", act_user_name=act_user_name, repo_name=repo_name, date=date)
+        # commit
         elif op_type == 3:
             try:
                 content_param = json.loads(str(content))
             except:
                 content_param = {}
             data += render_template("commit.tpl", act_user_name=act_user_name, repo_name=repo_name, commit=content_param["Commits"][0]["Sha1"], date=date)
+        # create repo
         elif op_type == 1:
             data += render_template("create.tpl", act_user_name=act_user_name, repo_name=repo_name, date=date)
+        # fork
         elif op_type == 5:
             try:
                 content_param = json.loads(str(content))
             except:
                 content_param = {}
             data += render_template("fork.tpl", act_user_name=act_user_name, repo_name=repo_name, fork_name=content_param["ForkName"], date=date)
+        # follow
         else:
            data += render_template("follow.tpl", act_user_name=act_user_name, repo_name=repo_name, repo_user_name=repo_user_name, date=date)
     if min_id > 1:
+        # button page
         data += render_template("page.tpl", start_id=min_id)
     return data
 
